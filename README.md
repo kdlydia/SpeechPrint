@@ -43,11 +43,11 @@ Rather than converting between incompatible tools and formats, SpeechPrint treat
 
 ---
 
-# Weave
+# Installer and Project generator
 
-SpeechPrint includes a management and project environment called **Weave**.
+SpeechPrint includes a management and project environment called **Installer**.
 
-Weave automates:
+Installer automates:
 
 * dependency installation
 * project creation
@@ -60,7 +60,7 @@ Weave automates:
 
 across Linux, macOS, and Windows.
 
-Rather than functioning as a conventional GUI wrapper, Weave acts as an orchestration layer between computational analysis, annotation infrastructure, and research-oriented workflows.
+Rather than functioning as a conventional GUI wrapper, Installer acts as an orchestration layer between computational analysis, annotation infrastructure, and research-oriented workflows.
 
 ---
 
