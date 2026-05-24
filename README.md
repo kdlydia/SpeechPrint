@@ -1,168 +1,179 @@
 # SpeechPrint
 
-SpeechPrint provides a unified environment for the analysis, annotation, and exploration of spoken language through computational, phonetic, and perceptual frameworks.
+Linguistic annotation and prosody analysis environment.
 
-Rather than treating transcription, alignment, prosody, and symbolic representation as isolated stages, SpeechPrint approaches them as interconnected layers operating over the same temporal substrate.
-
-At its core, SpeechPrint is not simply a forced-alignment utility or annotation interface. It is an infrastructural framework for examining how language behaves as acoustic material: simultaneously symbolic, physiological, temporal, and spectral. Pitch movement, phoneme structure, syllabic rhythm, intensity, and linguistic segmentation are treated not as separate domains requiring translation between tools, but as different analytical views over the same evolving signal.
+Drop a WAV in, get a Praat TextGrid out.
 
 SpeechPrint combines:
 
 * forced alignment
-* phonetic analysis
-* IPA extraction
-* symbolic prosody modeling
-* corpus management
-* recording workflows
+* phoneme extraction
+* IPA annotation
+* symbolic prosody analysis
+* corpus workflows
 * Praat interoperability
 * comparative aligner evaluation
 
-into a single research-oriented environment.
-
-The system integrates multiple alignment backends including WhisperX, MFA, Gentle, and CrisperWhisper, allowing researchers to compare timing behavior across systems while maintaining a unified annotation structure.
-
----
-
-# Architecture
-
-SpeechPrint operates through layered analysis rather than isolated tooling.
-
-A single recording may simultaneously contain:
-
-* waveform structure
-* spectral information
-* pitch trajectories
-* syllabic segmentation
-* phoneme segmentation
-* symbolic prosodic abstraction
-* multi-aligner word timings
-
-all synchronized within a shared temporal representation exported directly into Praat TextGrid structures.
-
-Rather than converting between incompatible tools and formats, SpeechPrint treats annotation layers as composable analytical views over the same acoustic signal.
-
----
-
-# Installer and Project generator
-
-SpeechPrint includes a management and project environment called **Installer**.
-
-Installer automates:
-
-* dependency installation
-* project creation
-* corpus generation
-* recording workflows
-* alignment execution
-* export pipelines
-* Praat integration
-* cross-platform setup
-
-across Linux, macOS, and Windows.
-
-Rather than functioning as a conventional GUI wrapper, Installer acts as an orchestration layer between computational analysis, annotation infrastructure, and research-oriented workflows.
-
----
-
-# Features
-
-## Analysis
-
-* Multi-aligner forced alignment
-* IPA / phoneme extraction
-* Syllable segmentation
-* Symbolic prosody analysis
-* F0 extraction
-* Intensity analysis
-* Formant analysis
-* CSV + JSON export
-* Comparative aligner evaluation
-
-## Annotation
-
-* Praat TextGrid export
-* Multi-tier annotation generation
-* Canonical analysis tiers
-* Aligner comparison tiers
-* Symbolic prosody tiers
-* IPA + syllable layers
-
-## Workflow
-
-* Integrated recording
-* Corpus project management
-* Automated export structure
-* GUI + CLI workflows
-* Batch processing
-* Cross-platform project portability
-
----
-
-# Design Philosophy
-
-SpeechPrint is built around the idea that language should not be treated purely as text.
-
-Speech exists simultaneously as:
-
-* acoustic structure
-* embodied gesture
-* symbolic system
-* temporal behavior
-* spectral material
-* compositional form
-
-Traditional tooling often separates these perspectives into disconnected software environments. SpeechPrint instead attempts to unify them into a shared analytical infrastructure.
-
-The goal is not merely transcription accuracy.
-
-The goal is to create a computational environment where linguistic structure, sonic material, annotation, and symbolic interpretation can coexist within the same workflow.
+into a unified research-oriented pipeline.
 
 ---
 
 # Quick Start
 
-## GUI
+## Linux
 
-```bash
+Install and launch:
+
+```bash id="mbz8pv"
+cd linux
+export SPEECHPRINT_ROOT="$PWD"
 uv run python -m lib.main
 ```
 
-## CLI
+SpeechPrint opens in workspace mode with:
 
-```bash
-uv run python -m speechprint_pkg.cli annotate input.wav --language en
+* Import Audio
+* Record Audio
+* Run Annotation
+* Open in Praat
+* Export ZIP
+
+---
+
+# Installation
+
+SpeechPrint currently targets Linux as the primary validated platform.
+
+The installer automates:
+
+* dependency installation
+* WhisperX setup
+* MFA setup
+* Gentle setup
+* Praat integration
+* project creation
+* corpus generation
+
+## Linux Installer
+
+Download the latest Linux release from:
+
+[SpeechPrint Releases](https://github.com/opensourceartwork/SpeechPrint/releases?utm_source=chatgpt.com)
+
+Launch:
+
+```bash id="agjlwm"
+uv run python -m lib.main
+```
+
+Choose:
+
+* **Install SpeechPrint** — first-time setup
+* **New Project / Corpus** — create a new annotation workspace
+
+The installer configures:
+
+* WhisperX
+* Montreal Forced Aligner (MFA)
+* Gentle
+* Parselmouth
+* Praat interoperability
+* Python dependencies
+* project templates
+
+---
+
+# Annotation Output
+
+Each annotated recording produces:
+
+## Praat TextGrid
+
+Main tiers:
+
+1. `words_selected`
+2. `syllables`
+3. `phonemes`
+4. `f0_pitch`
+5. `prosody_labels`
+6. `warnings_review`
+
+Optional comparison tiers:
+
+* `words_whisperx`
+* `words_mfa`
+* `words_gentle`
+* `words_crisperwhisper`
+
+when comparative alignment is enabled.
+
+---
+
+# Export Structure
+
+```text id="k4rjca"
+recording_name/
+├── recording.wav
+├── recording.TextGrid
+├── recording.master_emet.TextGrid
+├── words.csv
+├── syllables.csv
+├── phonemes.csv
+├── prosody.csv
+├── recording.json
+├── warnings.json
+├── LOG.txt
+└── aligners/
+    ├── comparison.csv
+    ├── selected_aligners.TextGrid
+    ├── recording.whisperx.TextGrid
+    ├── recording.mfa.TextGrid
+    ├── recording.gentle.TextGrid
+    └── recording.crisperwhisper.TextGrid
 ```
 
 ---
 
-# Supported Aligners
+# Alignment Systems
+
+SpeechPrint supports:
 
 | Aligner        | Purpose                         |
 | -------------- | ------------------------------- |
 | WhisperX       | Fast neural alignment           |
 | MFA            | High-precision forced alignment |
-| Gentle         | Lightweight alignment           |
+| Gentle         | Lightweight fallback alignment  |
 | CrisperWhisper | Experimental Whisper refinement |
 
-SpeechPrint can compare aligners simultaneously and export combined evaluation TextGrids and CSV reports.
+Comparative mode allows multiple aligners to run simultaneously and exports timing comparisons as CSV and TextGrid layers.
 
 ---
 
-# Output
+# Symbolic Prosody
 
-SpeechPrint exports:
+SpeechPrint generates symbolic prosody tiers using Parselmouth-derived measurements including:
 
-* Praat TextGrids
-* CSV tables
-* JSON manifests
-* comparison reports
-* IPA tiers
-* symbolic prosody layers
-* aligner evaluation data
+* F0 movement
+* semitone excursion
+* velocity
+* intensity
+* prominence
+* harmonicity
+* temporal positioning
+
+Symbols include:
+
+* `/` rising pitch
+* `\` falling pitch
+* `–` high level pitch
+* `_` low level pitch
+* `*` prominence marking
+
+The symbolic layer is adaptive and measurement-derived rather than rule-only.
 
 ---
 
-# Platform Support
+# Platforms
 
 | Platform | Status      |
 | -------- | ----------- |
@@ -174,24 +185,15 @@ Linux currently serves as the reference implementation.
 
 ---
 
-# Intended Use
+# Documentation
 
-SpeechPrint is intended for:
-
-* phonetic research
-* speech analysis
-* linguistic annotation
-* corpus creation
-* artistic research
-* computational linguistics
-* prosody research
-* speech technology experimentation
-* multilingual archival workflows
+* [Linux Guide](https://github.com/opensourceartwork/SpeechPrint/blob/main/docs/LINUX.md?utm_source=chatgpt.com)
+* [macOS Guide](https://github.com/opensourceartwork/SpeechPrint/blob/main/docs/MACOS.md?utm_source=chatgpt.com)
+* [Windows Guide](https://github.com/opensourceartwork/SpeechPrint/blob/main/docs/WINDOWS.md?utm_source=chatgpt.com)
+* [Development Guide](https://github.com/opensourceartwork/SpeechPrint/blob/main/docs/DEVELOP.md?utm_source=chatgpt.com)
 
 ---
 
-# Repository
+# License
 
-For installation details, releases, and updates:
-
-[SpeechPrint Repository](https://github.com/opensourceartwork/SpeechPrint?utm_source=chatgpt.com)
+GPL-3.0 — see LICENSE.
